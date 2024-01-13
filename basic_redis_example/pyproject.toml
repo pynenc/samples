@@ -1,0 +1,10 @@
+[tool.pynenc]
+app_id = "app_basic_redis_example"
+orchestrator_cls = "RedisOrchestrator"
+broker_cls = "RedisBroker"
+state_backend_cls = "RedisStateBackend"
+serializer_cls = "JsonSerializer"
+runner_cls = "ProcessRunner"
+
+[tool.pynenc.redis]
+redis_host = "redis"
