@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def run_distributed_add():
+def run_distributed_add() -> None:
     logger.info("Running distributed add")
     start_time = time.time()
     invocation = tasks.add(4, 4)
@@ -18,7 +18,7 @@ def run_distributed_add():
     logger.info(f"Distributed add time: {end_time - start_time} seconds")
 
 
-def run_parallel_sleep(sleep_args: list[int]):
+def run_parallel_sleep(sleep_args: list[int]) -> None:
     logger.info("Running parallel sleep (PS)")
     start_time = time.time()
     invocations = [tasks.sleep(i) for i in sleep_args]
@@ -38,7 +38,7 @@ def run_parallel_sleep(sleep_args: list[int]):
     logger.info(f"(PS)Parallel sleep time: {end_time - start_time} seconds")
 
 
-def run_sleep_using_parallelize(sleep_args: list[int]):
+def run_sleep_using_parallelize(sleep_args: list[int]) -> None:
     logger.info("Running sleep using parallelize (PSUP)")
     start_time = time.time()
     invocation_group = tasks.sleep.parallelize([(i,) for i in sleep_args])
