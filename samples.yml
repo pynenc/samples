@@ -1,0 +1,76 @@
+# Samples Manifest
+#
+# Every sample directory MUST be listed here.
+# The validation test (test_samples_coverage.py) enforces this.
+#
+# Fields:
+#   ci:           Whether this sample has CI testing enabled
+#   test_command: Command to verify the sample works (run from inside the sample dir)
+#   install:      How to install dependencies (default: "uv sync")
+#   services:     External services required (e.g. redis, mongodb)
+#   docs:         Referenced in pynenc documentation (https://docs.pynenc.org)
+#   description:  Short description of what the sample demonstrates
+
+samples:
+  auto_orchestration:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Automatic task orchestration with recursive Fibonacci"
+
+  basic_local_threaded_example:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Basic local threaded execution patterns"
+
+  basic_redis_example:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: [redis]
+    docs: true
+    description: "Distributed task processing with Redis"
+
+  concurrency_control:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Concurrency control strategies"
+
+  recovery_demo:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: false
+    description: "Automatic crash recovery with heartbeat monitoring"
+
+  mem_unit_testing:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run pytest test_add.py -v"
+    services: []
+    docs: true
+    description: "Unit testing with in-memory components and ThreadRunner"
+
+  sync_unit_testing:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run pytest test_add.py -v"
+    services: []
+    docs: true
+    description: "Unit testing with synchronous dev mode"
+
+# Directories that are NOT samples (infrastructure, docs, etc.).
+# Dot-prefixed, underscore-prefixed, and gitignored directories
+# are auto-excluded by test_samples_coverage.py.
+excluded_dirs:
+  - docs
+  - scripts

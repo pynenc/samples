@@ -1,5 +1,4 @@
 import logging
-import os
 import threading
 
 import tasks
@@ -18,7 +17,7 @@ def run_without_concurrency_control() -> None:
     invocations = [tasks.get_own_invocation_id() for _ in range(10)]
     if len(set(invocations)) != len(invocations):
         raise ValueError(f"Expected 10 unique invocations, got {invocations}")
-    logger.info(f"Invocation ids: " + ", ".join(i.invocation_id for i in invocations))
+    logger.info("Invocation ids: " + ", ".join(i.invocation_id for i in invocations))
 
 
 def run_with_registration_concurrency_control() -> None:
@@ -33,9 +32,7 @@ def run_with_registration_concurrency_control() -> None:
         The initial `DistributedInvocation` and then `ReusedInvocation`(s) with the same id.
     """
     # in this case ConcurrencyControlType.TASK will only allow one registered (routed) invocation at a time for the task
-    invocations = [
-        tasks.get_own_invocation_id_registration_concurrency() for _ in range(3)
-    ]
+    invocations = [tasks.get_own_invocation_id_registration_concurrency() for _ in range(3)]
     invocation_ids = {i.invocation_id for i in invocations}
     if len(invocation_ids) != 1:
         raise ValueError(f"Expected an unique invocation_id, got {invocations}")
@@ -67,17 +64,13 @@ def run_with_running_concurrency_control() -> None:
     thread.start()
 
     # check that without control runs in parallel
-    no_control_invocations = [
-        tasks.sleep_without_running_concurrency(0.1) for _ in range(10)
-    ]
+    no_control_invocations = [tasks.sleep_without_running_concurrency(0.1) for _ in range(10)]
     no_control_results = [i.result for i in no_control_invocations]
     if not any_run_in_parallel(no_control_results):
         raise ValueError(f"Expected parallel execution, got {no_control_results}")
 
     # check that with control does not run in parallel
-    controlled_invocations = [
-        tasks.sleep_with_running_concurrency(0.1) for _ in range(10)
-    ]
+    controlled_invocations = [tasks.sleep_with_running_concurrency(0.1) for _ in range(10)]
     controlled_results = [i.result for i in controlled_invocations]
     if any_run_in_parallel(controlled_results):
         raise ValueError(f"Expected sequential execution, got {controlled_results}")

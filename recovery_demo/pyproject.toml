@@ -1,0 +1,32 @@
+[project]
+name = "pynenc-sample-recovery-demo"
+version = "0.1.0"
+description = "Pynenc sample: automatic crash recovery with heartbeat monitoring"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc[monitor]==0.2.1",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.pynenc]
+app_id = "recovery_demo"
+orchestrator_cls = "SQLiteOrchestrator"
+broker_cls = "SQLiteBroker"
+state_backend_cls = "SQLiteStateBackend"
+runner_cls = "ThreadRunner"
+log_stream = "stdout"
+
+# Fast recovery timeouts for demo purposes.
+# Production systems use much higher values (defaults: 10 min heartbeat, 15 min recovery cron).
+runner_considered_dead_after_minutes = 0.1          # 6 seconds — heartbeat expiry
+max_pending_seconds = 3.0
+recover_running_invocations_cron = "* * * * *"      # every minute (fastest cron resolution)
+recover_pending_invocations_cron = "* * * * *"
+atomic_service_interval_minutes = 0.15              # 9 seconds cycle
+atomic_service_check_interval_minutes = 0.05        # 3 seconds between polls
+atomic_service_spread_margin_minutes = 0.02         # 1.2 seconds margin
+
+[tool.pynenc.sqlite]
+sqlite_db_path = "recovery_demo.db"

@@ -1,0 +1,11 @@
+[project]
+name = "pynenc-sample-basic-local-threaded"
+version = "0.1.0"
+description = "Pynenc sample: basic local threaded execution"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc>=0.2.0",
+]
+
+[dependency-groups]
+dev = []

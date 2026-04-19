@@ -1,3 +1,15 @@
+[project]
+name = "pynenc-sample-basic-redis"
+version = "0.1.0"
+description = "Pynenc sample: distributed task processing with Redis"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc[redis]>=0.2.0",
+]
+
+[dependency-groups]
+dev = []
+
 [tool.pynenc]
 app_id = "app_basic_redis_example"
 orchestrator_cls = "RedisOrchestrator"

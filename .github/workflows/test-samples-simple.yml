@@ -1,0 +1,85 @@
+# Tests samples that need no external services.
+# Reads samples.yml to build a matrix of samples with services: []
+name: Test Samples (Simple)
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    discover:
+        runs-on: ubuntu-latest
+        outputs:
+            matrix: ${{ steps.set-matrix.outputs.matrix }}
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+            - name: Build matrix from samples.yml
+              id: set-matrix
+              run: |
+                  python -c "
+                  import yaml, json
+                  with open('samples.yml') as f:
+                      data = yaml.safe_load(f)
+                  samples = [
+                      name for name, cfg in data['samples'].items()
+                      if cfg.get('ci') and not cfg.get('services')
+                  ]
+                  print(f'matrix={json.dumps({\"sample\": samples})}')
+                  " >> "$GITHUB_OUTPUT"
+
+    test:
+        needs: discover
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix: ${{ fromJson(needs.discover.outputs.matrix) }}
+        name: ${{ matrix.sample }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+
+            - name: Install uv
+              uses: astral-sh/setup-uv@v4
+
+            - name: Read sample config
+              id: config
+              run: |
+                  python -c "
+                  import yaml
+                  with open('samples.yml') as f:
+                      data = yaml.safe_load(f)
+                  cfg = data['samples']['${{ matrix.sample }}']
+                  print(f\"install={cfg.get('install', 'uv sync')}\")
+                  print(f\"test_command={cfg['test_command']}\")
+                  " >> "$GITHUB_OUTPUT"
+
+            - name: Install dependencies
+              working-directory: ${{ matrix.sample }}
+              run: ${{ steps.config.outputs.install }}
+
+            - name: Run test
+              working-directory: ${{ matrix.sample }}
+              run: ${{ steps.config.outputs.test_command }}
+
+    validate-manifest:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.12"
+            - name: Install uv
+              uses: astral-sh/setup-uv@v4
+            - name: Install root dependencies
+              run: uv sync
+            - name: Validate samples coverage
+              run: uv run pytest test_samples_coverage.py -v

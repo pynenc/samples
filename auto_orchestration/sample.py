@@ -1,6 +1,5 @@
 import logging
 import threading
-from unittest.mock import patch
 
 import tasks
 

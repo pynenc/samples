@@ -1,5 +1,3 @@
-import time
-
 from pynenc import Pynenc
 
 app = Pynenc()

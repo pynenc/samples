@@ -1,0 +1,40 @@
+[project]
+name = "pynenc-samples"
+version = "0.1.0"
+description = "Samples repository for pynenc — root project for validation tests only"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pyyaml",
+    "pre-commit",
+    "ruff",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "SIM108", # ternary operator — hurts readability in teaching samples
+]
+
+[tool.pytest.ini_options]
+testpaths = ["."]
+
+[tool.uv.workspace]
+members = [
+    "most_basic_example",
+]

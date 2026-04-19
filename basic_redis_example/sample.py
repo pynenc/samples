@@ -28,9 +28,7 @@ def run_parallel_sleep(sleep_args: list[int]) -> None:
     for invocation in invocations:
         logger.info(f"(PS)Waiting for {invocation.task.args=} to finish")
         # invocation.result will block until result is available
-        logger.info(
-            f"(PS)Done, {invocation.task.args=} sleept for {invocation.result} seconds"
-        )
+        logger.info(f"(PS)Done, {invocation.task.args=} sleept for {invocation.result} seconds")
         results.append(invocation.result)
     if results != sleep_args:
         raise ValueError(f"(PS)Expected {sleep_args}, got {results}")
@@ -52,9 +50,7 @@ def run_sleep_using_parallelize(sleep_args: list[int]) -> None:
         results.append(result)
     logger.info(f"(PSUP)Parallel invocation: {invocation_group=}")
     if set(results) != set(sleep_args):
-        raise ValueError(
-            f"(PSUP)Expected set {sleep_args}, got {invocation_group.results}"
-        )
+        raise ValueError(f"(PSUP)Expected set {sleep_args}, got {invocation_group.results}")
     if sorted(results) != results:
         # sorted ascending by the sleep time
         raise ValueError(f"(PSUP)Expected that results are sorted, but got {results}")

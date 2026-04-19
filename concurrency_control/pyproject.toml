@@ -1,0 +1,11 @@
+[project]
+name = "pynenc-sample-concurrency-control"
+version = "0.1.0"
+description = "Pynenc sample: concurrency control strategies"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc>=0.2.0",
+]
+
+[dependency-groups]
+dev = []

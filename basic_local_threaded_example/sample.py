@@ -1,5 +1,4 @@
 import logging
-import os
 import threading
 
 import tasks
@@ -38,7 +37,7 @@ def run_without_worker_add() -> None:
     thread.join(timeout=2)
     if results != []:
         raise ValueError(f"Expected [], got {results}")
-    logger.info(f"Task timeout, there was no worker to run the task")
+    logger.info("Task timeout, there was no worker to run the task")
 
 
 def run_sync() -> None:

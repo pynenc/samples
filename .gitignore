@@ -161,3 +161,11 @@ cython_debug/
 
 # Ignore VSCode project settings
 .vscode/
+
+# Private / local folders (prefixed with _)
+# Matches at any depth: _obs/, _recordings/, _scripts/ at root,
+# and _scripting/ (or any _*/) inside any sample subfolder.
+_*/
+
+# uv
+uv.lock

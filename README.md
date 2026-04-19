@@ -1,66 +1,60 @@
 # Samples for Pynenc
 
 ## Overview
-This repository contains various sample implementations that demonstrate the usage of the `pynenc` library. These examples are designed to help users understand the capabilities of `pynenc` and how it can be integrated into different applications.
+This repository contains sample implementations demonstrating the usage of the [pynenc](https://github.com/pynenc/pynenc) library. Each example is a **self-contained project** with its own virtual environment and dependencies.
 
-Each sample in this repository showcases different features or use cases of `pynenc`. Below is a list of the available samples with links to their detailed documentation.
+## Quick Start
+
+Each example is isolated. To run any example:
+
+```bash
+cd <example_folder>
+uv sync
+uv run python sample.py
+```
+
+### Prerequisites
+
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/) — install with:
+  ```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
 
 ## Available Samples
 
-| Sample Name          | Description |
-| -------------------- | ----------- |
-| [basic_local_threaded_example](./basic_local_threaded_example/README.md) | Provides a simple demonstration of using `pynenc` in a local-threaded environment, ideal for understanding basic functionalities in a non-distributed setup. |
-| [basic_redis_example](./basic_redis_example/README.md) | Demonstrates the basic setup and usage of `pynenc` with Redis for distributed task processing. It includes instructions for running with Docker, a local Redis server, and in development mode. |
-| [concurrency_control](./concurrency_control/README.md) | Demonstrates various settings for concurrency control, such as disabling concurrent execution or enforcing task-level concurrency for registration and running states. |
-| [auto_orchestration](./auto_orchestration/README.md) | Showcases automatic orchestration capabilities of `pynenc`, using a recursive Fibonacci function to illustrate how the library manages task dependencies and execution order. |
+| Sample | Description |
+| ------ | ----------- |
+| [auto_orchestration](./auto_orchestration/README.md) | Automatic orchestration with recursive Fibonacci — shows how pynenc manages task dependencies and execution order. |
+| [basic_local_threaded_example](./basic_local_threaded_example/README.md) | Simple local-threaded environment demo — ideal for understanding basic functionalities in a non-distributed setup. |
+| [basic_redis_example](./basic_redis_example/README.md) | Distributed task processing with Redis — includes Docker Compose setup with multiple workers. |
+| [concurrency_control](./concurrency_control/README.md) | Concurrency control settings — disabling concurrent execution, task-level concurrency for registration and running states. |
+| [recovery_demo](./recovery_demo/README.md) | Automatic crash recovery — demonstrates heartbeat monitoring and task recovery when a worker is killed mid-execution. |
+| [mem_unit_testing](./mem_unit_testing/README.md) | Unit testing pattern using in-memory components with ThreadRunner. |
+| [sync_unit_testing](./sync_unit_testing/README.md) | Unit testing pattern using synchronous dev mode for simple inline execution. |
 
+## CI & Testing
 
-## Setting Up a Common Python Environment
-To run these examples, you'll need Python 3.11 and a virtual environment. Here's how to set it up:
+Every sample is tested in CI via GitHub Actions. The system works as follows:
 
-### Navigate to the `samples` Folder
-```bash
-cd path/to/samples
-```
+- **[samples.yml](./samples.yml)** is the manifest — every sample directory must be listed with its test command, required services, and whether it appears in the pynenc docs.
+- **GitHub Actions** run each sample automatically, grouped by required services (simple vs Redis vs other backends).
+- **[test_samples_coverage.py](./test_samples_coverage.py)** is a validation test ensuring:
+  - Every directory is either listed in the manifest or explicitly excluded
+  - Every documented sample (referenced in [docs.pynenc.org](https://docs.pynenc.org)) has CI enabled
+  - No phantom entries exist in the manifest
 
-### Create the Virtual Environment
-Create a virtual environment named `venv`:
-```bash
-python3.11 -m venv venv
-```
-This command creates a new folder named `venv` in your `samples` directory, containing the Python environment.
+### Adding a new sample
 
-### Activate the Virtual Environment
-Activate the virtual environment:
-- **Windows:**
-  ```cmd
-  venv\Scripts\activate
-  ```
-- **Unix/MacOS:**
-  ```bash
-  source venv/bin/activate
-  ```
-Your command prompt should now indicate that the virtual environment is active, shown as `(venv)`.
-
-### Install `pynenc`
-Install `pynenc` within the virtual environment:
-```bash
-pip install pynenc
-```
-
-### Verify the Installation
-Check the installed packages:
-```bash
-pip list
-```
-Ensure that `pynenc` appears in the list.
-
-Remember to activate this environment whenever you work with these samples.
+1. Create the sample directory with a `pyproject.toml`
+2. Add it to `samples.yml` with `ci: true` and a `test_command`
+3. If it needs external services (Redis, MongoDB, etc.), add them to `services`
+4. Run `uv run pytest test_samples_coverage.py` to verify coverage
 
 ## Additional Resources
-- **Main GitHub Repository:** For more information about the `pynenc` library, visit the [GitHub repository](https://github.com/pynenc/pynenc).
-- **Official Website:** Learn more about `pynenc` at the [official website](https://pynenc.org).
-- **Documentation:** Detailed documentation is available at [docs.pynenc.org](https://docs.pynenc.org).
+- **Main GitHub Repository:** [github.com/pynenc/pynenc](https://github.com/pynenc/pynenc)
+- **Official Website:** [pynenc.org](https://pynenc.org)
+- **Documentation:** [docs.pynenc.org](https://docs.pynenc.org)
 
 ## License
 Refer to the LICENSE file in the main [pynenc repository](https://github.com/pynenc/pynenc) for licensing information.
