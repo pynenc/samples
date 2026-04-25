@@ -1,0 +1,21 @@
+[project]
+name = "pynenc-sample-direct-task-demo"
+version = "0.1.0"
+description = "Pynenc sample: distribute an existing Python codebase with @app.direct_task"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc>=0.2.0",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.pynenc]
+app_id = "direct_task_demo"
+orchestrator_cls = "SQLiteOrchestrator"
+broker_cls = "SQLiteBroker"
+state_backend_cls = "SQLiteStateBackend"
+runner_cls = "ThreadRunner"
+
+[tool.pynenc.sqlite]
+sqlite_db_path = "direct_task_demo.db"

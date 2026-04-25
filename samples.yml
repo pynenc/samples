@@ -52,6 +52,14 @@ samples:
     docs: false
     description: "Automatic crash recovery with heartbeat monitoring"
 
+  direct_task_demo:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample_sync.py && uv run python sample_distributed.py && uv run python sample_parallel.py"
+    services: []
+    docs: true
+    description: "Distribute an existing Python function with @app.direct_task — zero refactoring required"
+
   mem_unit_testing:
     ci: true
     install: "uv sync"
