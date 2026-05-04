@@ -44,6 +44,14 @@ samples:
     docs: true
     description: "Concurrency control strategies"
 
+  concurrency_demo:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Per-account concurrency control against a shared HTTP API (KEYS + key_arguments)"
+
   recovery_demo:
     ci: true
     install: "uv sync"

@@ -1,0 +1,26 @@
+[project]
+name = "pynenc-sample-concurrency-demo"
+version = "0.1.0"
+description = "Pynenc sample: per-account concurrency control against a shared HTTP API"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc[monitor]==0.2.2",
+    "fastapi>=0.115",
+    "uvicorn>=0.32",
+    "httpx>=0.27",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.pynenc]
+# This block is here only so `pynmon` (run from this folder) can discover
+# the same SQLite file the worker uses. The runtime configuration of the
+# app itself lives in tasks.py via PynencBuilder.
+app_id = "concurrency_demo"
+orchestrator_cls = "SQLiteOrchestrator"
+broker_cls = "SQLiteBroker"
+state_backend_cls = "SQLiteStateBackend"
+
+[tool.pynenc.sqlite]
+sqlite_db_path = "concurrency_demo.db"
