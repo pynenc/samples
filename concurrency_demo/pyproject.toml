@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Pynenc sample: per-account concurrency control against a shared HTTP API"
 requires-python = ">=3.12"
 dependencies = [
-    "pynenc[monitor]==0.2.3rc116.dev204",
+    "pynenc[monitor]==0.2.3",
     "fastapi>=0.115",
     "uvicorn>=0.32",
     "httpx>=0.27",
@@ -24,11 +24,3 @@ state_backend_cls = "SQLiteStateBackend"
 
 [tool.pynenc.sqlite]
 sqlite_db_path = "concurrency_demo.db"
-
-[tool.uv.sources]
-pynenc = { index = "testpypi" }
-
-[[tool.uv.index]]
-name = "testpypi"
-url = "https://test.pypi.org/simple/"
-explicit = true

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Pynenc sample: distribute an existing Python codebase with @app.direct_task"
 requires-python = ">=3.12"
 dependencies = [
-    "pynenc==0.2.3rc116.dev204",
+    "pynenc==0.2.3",
 ]
 
 [dependency-groups]
@@ -19,11 +19,3 @@ runner_cls = "ThreadRunner"
 
 [tool.pynenc.sqlite]
 sqlite_db_path = "direct_task_demo.db"
-
-[tool.uv.sources]
-pynenc = { index = "testpypi" }
-
-[[tool.uv.index]]
-name = "testpypi"
-url = "https://test.pypi.org/simple/"
-explicit = true
