@@ -1,0 +1,40 @@
+[project]
+name = "pynenc-sample-trigger-demo"
+version = "0.1.0"
+description = "Pynenc sample: declarative triggers (cron, events, status, exception, composite) — a comparative tour of event-driven task execution"
+requires-python = ">=3.12"
+dependencies = [
+    "pynenc[monitor]>=0.2.4",
+]
+
+[dependency-groups]
+dev = []
+
+[tool.pynenc]
+# Shared application configuration for tasks.py, the CLI runner, and Pynmon.
+# tasks.py uses PynencBuilder only to override the process-specific log level.
+app_id = "trigger_demo"
+orchestrator_cls = "SQLiteOrchestrator"
+broker_cls = "SQLiteBroker"
+state_backend_cls = "SQLiteStateBackend"
+client_data_store_cls = "SQLiteClientDataStore"
+trigger_cls = "SQLiteTrigger"
+runner_cls = "ThreadRunner"
+log_stream = "stdout"
+
+# Keep the demo timeline compact. These values match the event-monitoring
+# integration tests and are intentionally much faster than production defaults.
+scheduler_interval_seconds = 1
+atomic_service_interval_minutes = 0.01
+atomic_service_check_interval_minutes = 0.005
+atomic_service_spread_margin_minutes = 0.0
+atomic_service_max_start_slot_fraction = 1.0
+runner_loop_sleep_time_sec = 0.01
+invocation_wait_results_sleep_time_sec = 0.01
+
+# Tell the runner which module declares trigger-bearing tasks so they get
+# registered at startup.
+trigger_task_modules = ["tasks"]
+
+[tool.pynenc.sqlite]
+sqlite_db_path = "trigger_demo.db"
