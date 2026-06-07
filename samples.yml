@@ -60,6 +60,14 @@ samples:
     docs: false
     description: "Automatic crash recovery with heartbeat monitoring"
 
+  trigger_demo:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Declarative triggers (cron, events, status, exception, composite) — a comparative tour of event-driven task execution"
+
   direct_task_demo:
     ci: true
     install: "uv sync"

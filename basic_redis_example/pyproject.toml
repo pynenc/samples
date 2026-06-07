@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Pynenc sample: distributed task processing with Redis"
 requires-python = ">=3.12"
 dependencies = [
-    "pynenc[redis]>=0.2.0",
+    "pynenc[redis]==0.2.3",
 ]
 
 [dependency-groups]

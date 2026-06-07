@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Pynenc sample: automatic crash recovery with heartbeat monitoring"
 requires-python = ">=3.12"
 dependencies = [
-    "pynenc[monitor]==0.2.1",
+    "pynenc[monitor]==0.2.3",
 ]
 
 [dependency-groups]

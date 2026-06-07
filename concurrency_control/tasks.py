@@ -29,7 +29,7 @@ def sleep_without_running_concurrency(seconds: float) -> SleepResult:
     return SleepResult(start=start, end=time.time())
 
 
-@app.task(running_concurrency=ConcurrencyControlType.TASK)
+@app.task(running_concurrency=ConcurrencyControlType.TASK, reroute_on_concurrency_control=True)
 def sleep_with_running_concurrency(seconds: float) -> SleepResult:
     start = time.time()
     time.sleep(seconds)
