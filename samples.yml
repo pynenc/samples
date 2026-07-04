@@ -60,6 +60,14 @@ samples:
     docs: false
     description: "Automatic crash recovery with heartbeat monitoring"
 
+  search_algorithms_demo:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: false
+    description: "Classic search algorithms with every comparison or graph visit distributed as a Pynenc task"
+
   trigger_demo:
     ci: true
     install: "uv sync"
@@ -67,6 +75,14 @@ samples:
     services: []
     docs: true
     description: "Declarative triggers (cron, events, status, exception, composite) — a comparative tour of event-driven task execution"
+
+  workflow_order_fulfillment:
+    ci: true
+    install: "uv sync"
+    test_command: "uv run python sample.py"
+    services: []
+    docs: true
+    description: "Durable order fulfillment workflow with deterministic replay, workflow data, sub-workflows, and Pynmon monitoring"
 
   direct_task_demo:
     ci: true

@@ -18,20 +18,10 @@
 - `__init__.py`: An empty file to treat the directory as a Python module.
 
 ## Configuration
-The project uses a `pyproject.toml` file for configuration. The settings in this file are tailored to run all components with Redis and utilize the `ProcessRunner` for running tasks in separate processes.
+The configuration is set using the PynencBuilder class
 
-`pyproject.toml` contents:
-```toml
-[tool.pynenc]
-app_id = "app_basic_redis_example"
-orchestrator_cls = "RedisOrchestrator"
-broker_cls = "RedisBroker"
-state_backend_cls = "RedisStateBackend"
-serializer_cls = "JsonSerializer"
-runner_cls = "ProcessRunner"
-
-[tool.pynenc.redis]
-redis_host = "redis"
+```python
+app = PynencBuilder().app_id("app_basic_redis_example").redis("redis").build()
 ```
 
 ## Setup and Execution
