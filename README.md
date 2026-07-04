@@ -30,8 +30,10 @@ uv run python sample.py
 | [basic_redis_example](./basic_redis_example/README.md) | Distributed task processing with Redis — includes Docker Compose setup with multiple workers. |
 | [concurrency_control](./concurrency_control/README.md) | Concurrency control settings — disabling concurrent execution, task-level concurrency for registration and running states. |
 | [recovery_demo](./recovery_demo/README.md) | Automatic crash recovery — demonstrates heartbeat monitoring and task recovery when a worker is killed mid-execution. |
+| [search_algorithms_demo](./search_algorithms_demo/README.md) | Linear search, binary search, BFS, and DFS with every comparison or graph visit distributed as a task and observed in Pynmon. |
 | [mem_unit_testing](./mem_unit_testing/README.md) | Unit testing pattern using in-memory components with ThreadRunner. |
 | [sync_unit_testing](./sync_unit_testing/README.md) | Unit testing pattern using synchronous dev mode for simple inline execution. |
+| [workflow_order_fulfillment](./workflow_order_fulfillment/README.md) | Workflow order fulfillment demo. |
 
 ## CI & Testing
 

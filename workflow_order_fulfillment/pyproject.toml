@@ -1,0 +1,11 @@
+[project]
+name = "pynenc-sample-workflow-order-fulfillment"
+version = "0.1.0"
+description = "Pynenc sample: durable order fulfillment workflow with replay and Pynmon monitoring"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "pynenc[monitor]>=0.3.1",
+]
+
+[dependency-groups]
+dev = []

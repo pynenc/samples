@@ -1,3 +1,3 @@
-from pynenc import Pynenc
+from pynenc import PynencBuilder
 
-app = Pynenc()
+app = PynencBuilder().app_id("app_basic_redis_example").redis(url="redis://redis").multi_thread_runner().build()

@@ -3,12 +3,13 @@ name = "pynenc-samples"
 version = "0.1.0"
 description = "Samples repository for pynenc — root project for validation tests only"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pyyaml",
+]
 
 [dependency-groups]
 dev = [
     "pytest",
-    "pyyaml",
     "pre-commit",
     "ruff",
 ]
